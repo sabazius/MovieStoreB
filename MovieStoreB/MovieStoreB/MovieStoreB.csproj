@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MovieStoreB.DL\MovieStoreB.DL.csproj" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MovieStoreB.BL\MovieStoreB.BL.csproj" />
   </ItemGroup>
 
 </Project>
