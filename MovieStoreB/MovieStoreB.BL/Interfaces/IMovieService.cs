@@ -1,16 +1,12 @@
-﻿
-using MovieStoreB.Models.DTO;
+﻿using MovieStoreB.Models.DTO;
 
-namespace MovieStoreB.DL.Interfaces
+namespace MovieStoreB.BL.Interfaces
 {
-    public interface IMovieRepository
+    public interface IMovieService
     {
         List<Movie> GetMovies();
-
         void AddMovie(Movie movie);
-
         void DeleteMovie(int id);
-
         Movie? GetMoviesById(int id);
     }
 }
