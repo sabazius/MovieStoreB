@@ -1,6 +1,8 @@
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using MovieStoreB.BL.Interfaces;
 using MovieStoreB.Models.DTO;
+using MovieStoreB.Models.Requests;
 
 namespace MovieStoreB.Controllers
 {
@@ -9,19 +11,37 @@ namespace MovieStoreB.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IMovieService _movieService;
+        private readonly IMapper _mapper;
+        private readonly ILogger<MoviesController> _logger;
 
-        public MoviesController(IMovieService movieService)
+        public MoviesController(
+            IMovieService movieService,
+            IMapper mapper,
+            ILogger<MoviesController> logger)
         {
             _movieService = movieService;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet("GetAll")]
         public IEnumerable<Movie> GetAll()
         {
+            try
+            {
+                //code
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Error in GetAll {e.Message}-{e.StackTrace}");
+            }
             return _movieService.GetMovies();
         }
 
         [HttpGet("GetById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetById(int id)
         {
             if (id <= 0) return BadRequest();
@@ -35,8 +55,11 @@ namespace MovieStoreB.Controllers
         }
 
         [HttpPost("AddMovie")]
-        public void AddMovie([FromBody]Movie movie)
+        public void AddMovie(
+            [FromBody]AddMovieRequest movieRequest)
         {
+            var movie = _mapper.Map<Movie>(movieRequest);
+
             _movieService.AddMovie(movie);
         }
 

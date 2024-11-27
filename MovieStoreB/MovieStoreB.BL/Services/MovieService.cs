@@ -34,7 +34,12 @@ namespace MovieStoreB.BL.Services
 
         public Movie? GetMoviesById(int id)
         {
-            if (id <= 0) return null;
+            if (id <= 0)
+            {
+                return null;
+            }
+
+
 
             return _movieRepository.GetMoviesById(id);
         }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MovieStoreB.Models.DTO
+﻿namespace MovieStoreB.Models.DTO
 {
     public class Actor
     {
