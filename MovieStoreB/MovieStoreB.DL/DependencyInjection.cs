@@ -10,9 +10,9 @@ namespace MovieStoreB.DL
             AddDataDependencies(
                 this IServiceCollection services)
         {
-            services.AddSingleton
-            <IMovieRepository, MovieRepository>();
-           
+            services.AddSingleton<IMovieRepository, MovieStaticRepository>();
+            services.AddSingleton<IActorRepository, ActorStaticRepository>();
+
             return services;
         }
     }

@@ -1,8 +1,11 @@
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using Mapster;
 using MovieStoreB.BL;
 using MovieStoreB.DL;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
+using MovieStoreB.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,9 @@ builder.Services
     .AddBusinessDependencies();
 
 builder.Services.AddMapster();
+
+builder.Services.AddValidatorsFromAssemblyContaining<TestRequest>();
+builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();

@@ -4,7 +4,7 @@ using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.DL.Repositories
 {
-    internal class MovieRepository : IMovieRepository
+    internal class MovieStaticRepository : IMovieRepository
     {
         public List<Movie> GetMovies()
         {
