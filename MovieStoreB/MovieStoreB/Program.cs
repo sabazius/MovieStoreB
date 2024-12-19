@@ -6,6 +6,7 @@ using MovieStoreB.DL;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using MovieStoreB.Controllers;
+using MovieStoreB.ServiceExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Logging.AddSerilog(logger);
 
 // Add services to the container.
 builder.Services
+    .AddConfigurations(builder.Configuration)
     .AddDataDependencies()
     .AddBusinessDependencies();
 

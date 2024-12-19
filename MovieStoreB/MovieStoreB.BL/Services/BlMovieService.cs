@@ -20,7 +20,6 @@ namespace MovieStoreB.BL.Services
             var result = new List<FullMovieDetails>();
 
             var movies = _movieService.GetMovies();
-            //За всеки филм взимате автор по Id и го добавяте в result
 
             foreach (var movie in movies)
             {
