@@ -42,9 +42,9 @@ namespace MovieStoreB.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(string id)
         {
-            if (id <= 0) return BadRequest();
+            if (!string.IsNullOrEmpty(id)) return BadRequest();
 
             var result =
                 _movieService.GetMoviesById(id);
@@ -64,9 +64,9 @@ namespace MovieStoreB.Controllers
         }
 
         [HttpDelete("Delete")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
-            if (id <= 0) return BadRequest($"Wrong id:{id}");
+            if (!string.IsNullOrEmpty(id)) return BadRequest($"Wrong id:{id}");
 
             _movieService.DeleteMovie(id);
 
