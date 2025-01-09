@@ -6,6 +6,7 @@ using MovieStoreB.DL;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using MovieStoreB.Controllers;
+using MovieStoreB.HealthChecks;
 using MovieStoreB.ServiceExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +33,11 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
+//builder.Services.AddHealthChecks();
+
+builder.Services.AddHealthChecks()
+    .AddCheck<SampleHealthCheck>("Sample");
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -39,6 +45,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapHealthChecks("/healthz");
 
 // Configure the HTTP request pipeline.
 

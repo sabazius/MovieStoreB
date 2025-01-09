@@ -10,4 +10,8 @@
     <ProjectReference Include="..\MovieStoreB.DL\MovieStoreB.DL.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="MovieStoreB.Tests" />
+	</ItemGroup>
+
 </Project>

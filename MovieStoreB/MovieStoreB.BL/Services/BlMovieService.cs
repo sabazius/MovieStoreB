@@ -33,6 +33,7 @@ namespace MovieStoreB.BL.Services
                     var actor = _actorRepository.GetById(actorId);
                 }
 
+                result.Add(movieDetails);
             }
             return result;
         }
