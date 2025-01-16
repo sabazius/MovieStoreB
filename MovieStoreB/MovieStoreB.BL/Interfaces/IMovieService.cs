@@ -11,5 +11,7 @@ namespace MovieStoreB.BL.Interfaces
         void DeleteMovie(string id);
 
         Movie? GetMoviesById(string id);
+
+        void AddActor(string movieId, Actor actor);
     }
 }

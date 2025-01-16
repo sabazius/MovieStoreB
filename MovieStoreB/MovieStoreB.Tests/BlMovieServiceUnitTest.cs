@@ -70,7 +70,7 @@ namespace MovieStoreB.Tests
                 .Returns(_movies);
 
             _actorRepositoryMock
-                .Setup(repo => 
+                .Setup(repo =>
                     repo.GetById(It.IsAny<string>()))
                     .Returns((string id) =>
                         _actors.FirstOrDefault(x => x.Id == id));
@@ -81,7 +81,7 @@ namespace MovieStoreB.Tests
                 _actorRepositoryMock.Object);
 
             //act
-            var result = 
+            var result =
                 blMovieService.GetAllMovieDetails();
 
             //assert
