@@ -60,7 +60,7 @@ namespace MovieStoreB.Tests
         }
 
         [Fact]
-        void GetMoviesById_ReturnsData()
+        async Task GetMoviesById_ReturnsData()
         {
             // Arrange
             var movieId = _movies[0].Id;
@@ -72,7 +72,7 @@ namespace MovieStoreB.Tests
             var movieService = new MovieService(_movieRepositoryMock.Object, _actorRepositoryMock.Object);
 
             // Act
-            var result = movieService.GetMoviesById(movieId);
+            var result = await movieService.GetMoviesById(movieId);
 
             // Assert
             Assert.NotNull(result);

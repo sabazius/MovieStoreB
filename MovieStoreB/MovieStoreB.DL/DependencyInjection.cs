@@ -12,7 +12,7 @@ namespace MovieStoreB.DL
                 this IServiceCollection services)
         {
             services.AddSingleton<IMovieRepository, MoviesRepository>();
-            //services.AddSingleton<IActorRepository, ActorStaticRepository>();
+            services.AddSingleton<IActorRepository, ActorRepository>();
 
             return services;
         }

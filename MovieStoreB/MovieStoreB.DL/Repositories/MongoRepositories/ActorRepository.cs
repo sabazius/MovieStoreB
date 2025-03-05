@@ -7,12 +7,12 @@ using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.DL.Repositories.MongoRepositories
 {
-    internal class MoviesRepository : IMovieRepository
+    internal class ActorRepository : IActorRepository
     {
-        private readonly IMongoCollection<Movie> _moviesCollection;
-        private readonly ILogger<MoviesRepository> _logger;
+        private readonly IMongoCollection<Actor> _actorCollection;
+        private readonly ILogger<ActorRepository> _logger;
 
-        public MoviesRepository(ILogger<MoviesRepository> logger, IOptionsMonitor<MongoDbConfiguration> mongoConfig)
+        public ActorRepository(ILogger<ActorRepository> logger, IOptionsMonitor<MongoDbConfiguration> mongoConfig)
         {
             _logger = logger;
 
@@ -26,16 +26,16 @@ namespace MovieStoreB.DL.Repositories.MongoRepositories
             var client = new MongoClient(mongoConfig.CurrentValue.ConnectionString);
             var database = client.GetDatabase(mongoConfig.CurrentValue.DatabaseName);
 
-            _moviesCollection = database.GetCollection<Movie>($"{nameof(Movie)}s");
+            _actorCollection = database.GetCollection<Actor>($"{nameof(Actor)}s");
         }
 
-        public async Task AddMovie(Movie movie)
+        public async Task AddActor(Actor movie)
         {
             try
             {
                 movie.Id = Guid.NewGuid().ToString();
 
-                await _moviesCollection.InsertOneAsync(movie);
+                await _actorCollection.InsertOneAsync(movie);
             }
             catch (Exception e)
             {
@@ -43,23 +43,31 @@ namespace MovieStoreB.DL.Repositories.MongoRepositories
             }
         }
 
-        public async Task DeleteMovie(string id)
+        public async Task DeleteActor(string id)
         {
-            await _moviesCollection.DeleteOneAsync(m => m.Id == id);
+            await _actorCollection.DeleteOneAsync(m => m.Id == id);
         }
 
-        public async Task<List<Movie>> GetMovies()
+        public async Task<List<Actor>> GetActors()
         {
-            var result =  await _moviesCollection.FindAsync(m => true);
+            var result =  await _actorCollection.FindAsync(m => true);
 
             return result.ToList();
         }
 
-        public async Task<Movie?> GetMoviesById(string id)
+        public async Task<Actor?> GetById(string id)
         {
-           var result =  await _moviesCollection.FindAsync(m => m.Id == id);
+           var result =  await _actorCollection.FindAsync(m => m.Id == id);
 
            return result.FirstOrDefault();
+        }
+
+        public async Task<List<Actor>> GetActors(List<string> actorIds)
+        {
+            var result = await
+                _actorCollection.FindAsync(m => actorIds.Contains(m.Id.ToString()));
+
+            return await result.ToListAsync();
         }
     }
 }
