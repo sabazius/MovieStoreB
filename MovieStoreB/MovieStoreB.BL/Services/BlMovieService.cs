@@ -1,5 +1,6 @@
 ﻿using MovieStoreB.BL.Interfaces;
 using MovieStoreB.DL.Interfaces;
+using MovieStoreB.Models.DTO;
 using MovieStoreB.Models.Responses;
 
 namespace MovieStoreB.BL.Services
@@ -15,11 +16,11 @@ namespace MovieStoreB.BL.Services
             _actorRepository = actorRepository;
         }
 
-        public List<FullMovieDetails> GetAllMovieDetails()
+        public async Task<List<FullMovieDetails>> GetAllMovieDetails()
         {
             var result = new List<FullMovieDetails>();
 
-            var movies = _movieService.GetMovies();
+            var movies = await _movieService.GetMovies();
 
             foreach (var movie in movies)
             {
@@ -27,12 +28,11 @@ namespace MovieStoreB.BL.Services
                 movieDetails.Title = movie.Title;
                 movieDetails.Year = movie.Year;
                 movieDetails.Id = movie.Id;
+                
+                var actors = await
+                    _actorRepository.GetActors(movie.Actors);
 
-                foreach (var actorId in movie.Actors)
-                {
-                    var actor = _actorRepository.GetById(actorId);
-                }
-
+                movieDetails.Actors = actors;
                 result.Add(movieDetails);
             }
             return result;

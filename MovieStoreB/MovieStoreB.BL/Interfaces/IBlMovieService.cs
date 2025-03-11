@@ -4,6 +4,6 @@ namespace MovieStoreB.BL.Interfaces
 {
     public interface IBlMovieService
     {
-        List<FullMovieDetails> GetAllMovieDetails();
+        Task<List<FullMovieDetails>> GetAllMovieDetails();
     }
 }
