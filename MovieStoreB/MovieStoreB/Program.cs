@@ -23,7 +23,8 @@ builder.Logging.AddSerilog(logger);
 builder.Services
     .AddConfigurations(builder.Configuration)
     .AddDataDependencies()
-    .AddBusinessDependencies();
+    .AddBusinessDependencies()
+    .AddBackgroundServices();
 
 builder.Services.AddMapster();
 
