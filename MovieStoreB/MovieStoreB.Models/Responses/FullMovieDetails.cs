@@ -10,6 +10,8 @@ namespace MovieStoreB.Models.Responses
 
         public int Year { get; set; }
 
+        public DateTime DateInserted { get; set; }
+
         public List<Actor> Actors { get; set; }
     }
 }

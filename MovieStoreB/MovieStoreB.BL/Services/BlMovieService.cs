@@ -28,7 +28,7 @@ namespace MovieStoreB.BL.Services
                 movieDetails.Year = movie.Year;
                 movieDetails.Id = movie.Id;
 
-                foreach (var actorId in movie.Actors)
+                foreach (var actorId in movie.ActorIds)
                 {
                     var actor = _actorRepository.GetById(actorId);
                 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MovieStoreB.DL.Cache;
 using MovieStoreB.DL.Interfaces;
 using MovieStoreB.DL.Repositories;
 using MovieStoreB.DL.Repositories.MongoRepositories;
@@ -12,7 +13,9 @@ namespace MovieStoreB.DL
                 this IServiceCollection services)
         {
             services.AddSingleton<IMovieRepository, MoviesRepository>();
-            //services.AddSingleton<IActorRepository, ActorStaticRepository>();
+            services.AddSingleton<IActorRepository, ActorMongoRepository>();
+
+            services.AddHostedService<MongoCacheDistributor>();
 
             return services;
         }

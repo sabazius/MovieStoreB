@@ -18,7 +18,7 @@ namespace MovieStoreB.Tests
                 Id = Guid.NewGuid().ToString(),
                 Title = "Movie 1",
                 Year = 2021,
-                Actors = [
+                ActorIds = [
                     "157af604-7a4b-4538-b6a9-fed41a41cf3a",
                     "baac2b19-bbd2-468d-bd3b-5bd18aba98d7"]
             },
@@ -27,7 +27,7 @@ namespace MovieStoreB.Tests
                 Id = Guid.NewGuid().ToString(),
                 Title = "Movie 2",
                 Year = 2022,
-                Actors = [
+                ActorIds = [
                     "157af604-7a4b-4538-b6a9-fed41a41cf3a",
                     "5c93ba13-e803-49c1-b465-d471607e97b3"
                 ]

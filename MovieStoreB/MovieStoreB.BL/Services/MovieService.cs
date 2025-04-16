@@ -22,9 +22,11 @@ namespace MovieStoreB.BL.Services
 
         public void AddMovie(Movie movie)
         {
-            if (movie == null || movie.Actors == null) return;
+            if (movie == null || movie.ActorIds == null) return;
 
-            foreach (var actor in movie.Actors)
+            movie.DateInserted = DateTime.UtcNow;
+
+            foreach (var actor in movie.ActorIds)
             {
                 if (!Guid.TryParse(actor, out _)) return;
             }
@@ -59,9 +61,9 @@ namespace MovieStoreB.BL.Services
 
             if (movie == null) return;
 
-            if (movie.Actors == null)
+            if (movie.ActorIds == null)
             {
-                movie.Actors = new List<string>();
+                movie.ActorIds = new List<string>();
             }
 
             if (actor.Id == null || string.IsNullOrEmpty(actor.Id) || Guid.TryParse(actor.Id, out _) == false) return;
@@ -70,7 +72,7 @@ namespace MovieStoreB.BL.Services
 
             if (existingActor != null) return;
 
-            movie.Actors.Add(actor.Id);
+            movie.ActorIds.Add(actor.Id);
         }
     }
 }

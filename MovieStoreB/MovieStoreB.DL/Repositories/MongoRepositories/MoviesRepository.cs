@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using MovieStoreB.DL.Interfaces;
 using MovieStoreB.Models.Configurations;
 using MovieStoreB.Models.DTO;
+using System.Collections.Generic;
 
 namespace MovieStoreB.DL.Repositories.MongoRepositories
 {
@@ -49,6 +50,13 @@ namespace MovieStoreB.DL.Repositories.MongoRepositories
         public Movie? GetMoviesById(string id)
         {
             return _moviesCollection.Find(m => m.Id == id).FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<Movie?>> GetMoviesAfterDateTime(DateTime date)
+        {
+            var result = await _moviesCollection.FindAsync(m => m.DateInserted >= date);
+
+            return await result.ToListAsync();
         }
     }
 }

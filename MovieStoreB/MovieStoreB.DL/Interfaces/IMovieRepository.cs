@@ -12,5 +12,7 @@ namespace MovieStoreB.DL.Interfaces
         void DeleteMovie(string id);
 
         Movie? GetMoviesById(string id);
+
+        Task<IEnumerable<Movie?>> GetMoviesAfterDateTime(DateTime date);
     }
 }
