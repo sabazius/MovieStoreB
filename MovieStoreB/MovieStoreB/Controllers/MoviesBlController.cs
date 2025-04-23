@@ -22,7 +22,7 @@ namespace MovieStoreB.Controllers
         }
 
         [HttpPost("TestFluentValid")]
-        public IActionResult TestFluentValid([FromBody] TestRequest movieRequest)
+        public async Task<IActionResult> TestFluentValid([FromBody] TestRequest movieRequest)
         {
             //if (movieRequest == null) return BadRequest();
 
@@ -38,17 +38,17 @@ namespace MovieStoreB.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<Movie> GetAll()
+        public async Task<IEnumerable<Movie>> GetAll()
         {
             try
             {
-                //code
+               return await _movieService.GetMovies();
             }
             catch (Exception e)
             {
                 _logger.LogError(e, $"Error in GetAll {e.Message}-{e.StackTrace}");
             }
-            return _movieService.GetMovies();
+            return await _movieService.GetMovies();
         }
     }
 

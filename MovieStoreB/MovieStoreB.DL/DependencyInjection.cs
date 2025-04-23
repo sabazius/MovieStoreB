@@ -3,6 +3,7 @@ using MovieStoreB.DL.Cache;
 using MovieStoreB.DL.Interfaces;
 using MovieStoreB.DL.Repositories;
 using MovieStoreB.DL.Repositories.MongoRepositories;
+using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.DL
 {
@@ -15,7 +16,9 @@ namespace MovieStoreB.DL
             services.AddSingleton<IMovieRepository, MoviesRepository>();
             services.AddSingleton<IActorRepository, ActorMongoRepository>();
 
-            services.AddHostedService<MongoCacheDistributor>();
+            //services.AddHostedService<MongoCacheDistributor>();
+            services.AddSingleton<ICacheRepository<Movie>, MoviesRepository>();
+            services.AddHostedService<MongoCachePopulator<Movie, IMovieRepository>>();
 
             return services;
         }

@@ -15,11 +15,11 @@ namespace MovieStoreB.BL.Services
             _actorRepository = actorRepository;
         }
 
-        public List<FullMovieDetails> GetAllMovieDetails()
+        public async Task<List<FullMovieDetails>> GetAllMovieDetails()
         {
             var result = new List<FullMovieDetails>();
 
-            var movies = _movieService.GetMovies();
+            var movies = await _movieService.GetMovies();
 
             foreach (var movie in movies)
             {

@@ -1,6 +1,6 @@
 ﻿namespace MovieStoreB.Models.DTO
 {
-    public class Movie 
+    public class Movie
     {
         public string Id { get; set; }
 

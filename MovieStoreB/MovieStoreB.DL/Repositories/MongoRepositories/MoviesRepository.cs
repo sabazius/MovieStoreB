@@ -4,7 +4,6 @@ using MongoDB.Driver;
 using MovieStoreB.DL.Interfaces;
 using MovieStoreB.Models.Configurations;
 using MovieStoreB.Models.DTO;
-using System.Collections.Generic;
 
 namespace MovieStoreB.DL.Repositories.MongoRepositories
 {
@@ -42,7 +41,7 @@ namespace MovieStoreB.DL.Repositories.MongoRepositories
             _moviesCollection.DeleteOne(m => m.Id == id);
         }
 
-        public List<Movie> GetMovies()
+        public async Task<List<Movie>> GetMovies()
         {
             return _moviesCollection.Find(m => true).ToList();
         }
@@ -57,6 +56,16 @@ namespace MovieStoreB.DL.Repositories.MongoRepositories
             var result = await _moviesCollection.FindAsync(m => m.DateInserted >= date);
 
             return await result.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Movie?>> FullLoad()
+        {
+            return await GetMovies();
+        }
+
+        public async Task<IEnumerable<Movie?>> DifLoad(DateTime lastExecuted)
+        {
+            return await GetMoviesAfterDateTime(lastExecuted);
         }
     }
 }

@@ -60,14 +60,14 @@ namespace MovieStoreB.Tests
         }
 
         [Fact]
-        public void GetAllMovieDetails_ReturnsData()
+        public async void GetAllMovieDetails_ReturnsData()
         {
             //setup
             var expectedCount = 2;
 
             _movieServiceMock
                 .Setup(x => x.GetMovies())
-                .Returns(_movies);
+                .ReturnsAsync(_movies);
 
             _actorRepositoryMock
                 .Setup(repo =>
@@ -81,7 +81,7 @@ namespace MovieStoreB.Tests
                 _actorRepositoryMock.Object);
 
             //act
-            var result =
+            var result = await
                 blMovieService.GetAllMovieDetails();
 
             //assert

@@ -15,9 +15,9 @@ namespace MovieStoreB.BL.Services
             _actorRepository = actorRepository;
         }
 
-        public List<Movie> GetMovies()
+        public async Task<List<Movie>> GetMovies()
         {
-            return _movieRepository.GetMovies();
+            return await _movieRepository.GetMovies();
         }
 
         public void AddMovie(Movie movie)

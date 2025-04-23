@@ -25,17 +25,17 @@ namespace MovieStoreB.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<Movie> GetAll()
+        public async Task<IEnumerable<Movie>> GetAll()
         {
             try
             {
-                //code
+                await _movieService.GetMovies();
             }
             catch (Exception e)
             {
                 _logger.LogError(e, $"Error in GetAll {e.Message}-{e.StackTrace}");
             }
-            return _movieService.GetMovies();
+            return await _movieService.GetMovies();
         }
 
         [HttpGet("GetById")]
@@ -44,7 +44,7 @@ namespace MovieStoreB.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetById(string id)
         {
-            if (!string.IsNullOrEmpty(id)) return BadRequest();
+            if (string.IsNullOrEmpty(id)) return BadRequest();
 
             var result =
                 _movieService.GetMoviesById(id);
