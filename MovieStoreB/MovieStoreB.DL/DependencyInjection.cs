@@ -20,6 +20,7 @@ namespace MovieStoreB.DL
             //services.AddSingleton<ICacheRepository<Movie>, MoviesRepository>();
 
             services.AddCache<MoviesCacheConfiguration, MoviesRepository, Movie>(config);
+
             //services.AddHostedService<MongoCachePopulator<Movie, IMovieRepository>>();
 
             return services;
@@ -28,7 +29,7 @@ namespace MovieStoreB.DL
         public static IServiceCollection AddCache<TCacheConfiguration, TCacheRepository, TData>(this IServiceCollection services, IConfiguration config)
            where TCacheConfiguration : CacheConfiguration
            where TCacheRepository : class, ICacheRepository<TData>
-           where TData : class
+           where TData : CacheItem
         {
             var configSection = config.GetSection(typeof(TCacheConfiguration).Name);
 

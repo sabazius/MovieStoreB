@@ -14,4 +14,8 @@
     <ProjectReference Include="..\MovieStoreB.Models\MovieStoreB.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Kafka\" />
+  </ItemGroup>
+
 </Project>

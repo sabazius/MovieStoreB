@@ -1,41 +1,12 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using MovieStoreB.DL.Interfaces;
-using MovieStoreB.DL.Repositories.MongoRepositories;
+using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.DL.Cache
 {
-    //must be in separate project and deployable service
-    // Generic Params -> TData, TDataRepository
-    //public class MongoCacheDistributor : BackgroundService
-    //{
-    //    private readonly IMovieRepository _movieRepository;
-
-    //    public MongoCacheDistributor(IMovieRepository movieRepository)
-    //    {
-    //        _movieRepository = movieRepository;
-    //    }
-
-    //    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    //    {
-    //        var lastExecuted = DateTime.UtcNow;
-
-    //        var result = _movieRepository.GetMovies();
-
-    //        while (!stoppingToken.IsCancellationRequested)
-    //        {
-    //            await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
-
-    //            var updatedMovies = await _movieRepository.GetMoviesAfterDateTime(lastExecuted);
-
-    //            lastExecuted = DateTime.UtcNow;
-    //        }
-    //    }
-    //}
-
     public class MongoCachePopulator<TData, TDataRepository, TConfigurationType> : BackgroundService 
         where TDataRepository : ICacheRepository<TData>
-        where TData : class
+        where TData : CacheItem
         where TConfigurationType : CacheConfiguration
     {
         private readonly ICacheRepository<TData> _cacheRepository;
@@ -46,7 +17,6 @@ namespace MovieStoreB.DL.Cache
             _cacheRepository = cacheRepository;
             _configuration = configuration;
         }
-
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -61,6 +31,11 @@ namespace MovieStoreB.DL.Cache
                 var updatedMovies = await _cacheRepository.DifLoad(lastExecuted);
 
                 lastExecuted = DateTime.UtcNow;
+
+                if (updatedMovies == null || !updatedMovies.Any())
+                {
+                    continue;
+                }
             }
         }
     }

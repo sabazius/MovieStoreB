@@ -1,9 +1,10 @@
-﻿using MovieStoreB.Models.DTO;
+﻿using MovieStoreB.DL.Cache;
+using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.DL.Interfaces
 {
-    public interface IActorRepository
+    public interface IActorRepository : ICacheRepository<Actor>
     {
-        Actor? GetById(string id);
+        Task<Actor?> GetById(string id);
     }
 }
