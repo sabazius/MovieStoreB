@@ -1,4 +1,7 @@
-﻿using MovieStoreB.Models.Configurations;
+﻿using MovieStoreB.DL.Cache;
+using MovieStoreB.DL.Interfaces;
+using MovieStoreB.Models.Configurations;
+using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.ServiceExtensions
 {
@@ -8,7 +11,13 @@ namespace MovieStoreB.ServiceExtensions
         {
             services.Configure<MongoDbConfiguration>(config.GetSection(nameof(MongoDbConfiguration)));
 
+           
+
             return services;
         }
+              
+
     }
+
+   
 }
