@@ -2,15 +2,15 @@
 using Microsoft.Extensions.DependencyInjection;
 using MovieStoreB.DL.Cache;
 using MovieStoreB.DL.Interfaces;
+using MovieStoreB.DL.Kafka;
 using MovieStoreB.DL.Repositories.MongoRepositories;
-using MovieStoreB.Models.Configurations;
 using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.DL
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection 
+        public static IServiceCollection
             AddDataDependencies(this IServiceCollection services, IConfiguration config)
         {
             services.AddSingleton<IMovieRepository, MoviesRepository>();
@@ -19,17 +19,18 @@ namespace MovieStoreB.DL
             //services.AddHostedService<MongoCacheDistributor>();
             //services.AddSingleton<ICacheRepository<Movie>, MoviesRepository>();
 
-            services.AddCache<MoviesCacheConfiguration, MoviesRepository, Movie>(config);
+            services.AddCache<MoviesCacheConfiguration, MoviesRepository, Movie, string>(config);
 
             //services.AddHostedService<MongoCachePopulator<Movie, IMovieRepository>>();
 
             return services;
         }
 
-        public static IServiceCollection AddCache<TCacheConfiguration, TCacheRepository, TData>(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddCache<TCacheConfiguration, TCacheRepository, TData, TKey>(this IServiceCollection services, IConfiguration config)
            where TCacheConfiguration : CacheConfiguration
            where TCacheRepository : class, ICacheRepository<TData>
-           where TData : CacheItem
+           where TData : CacheItem<TKey>
+           where TKey : notnull
         {
             var configSection = config.GetSection(typeof(TCacheConfiguration).Name);
 
@@ -41,7 +42,8 @@ namespace MovieStoreB.DL
             services.Configure<TCacheConfiguration>(configSection);
 
             services.AddSingleton<ICacheRepository<TData>, TCacheRepository>();
-            services.AddHostedService<MongoCachePopulator<TData, ICacheRepository<TData>, TCacheConfiguration>>();
+            services.AddSingleton<IKafkaProducer<TData>, KafkaProducer<TKey, TData>>();
+            services.AddHostedService<MongoCachePopulator<TData, ICacheRepository<TData>, TCacheConfiguration, TKey>>();
 
             return services;
         }

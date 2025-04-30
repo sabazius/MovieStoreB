@@ -4,9 +4,9 @@ using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.DL.Cache
 {
-    public class MongoCachePopulator<TData, TDataRepository, TConfigurationType> : BackgroundService 
+    public class MongoCachePopulator<TData, TDataRepository, TConfigurationType, TKey> : BackgroundService 
         where TDataRepository : ICacheRepository<TData>
-        where TData : CacheItem
+        where TData : CacheItem<TKey>
         where TConfigurationType : CacheConfiguration
     {
         private readonly ICacheRepository<TData> _cacheRepository;
@@ -30,12 +30,15 @@ namespace MovieStoreB.DL.Cache
 
                 var updatedMovies = await _cacheRepository.DifLoad(lastExecuted);
 
-                lastExecuted = DateTime.UtcNow;
-
                 if (updatedMovies == null || !updatedMovies.Any())
                 {
                     continue;
                 }
+
+                var lastUpdated = updatedMovies.Last()?.DateInserted;
+
+                lastExecuted = lastUpdated ?? DateTime.UtcNow;
+
             }
         }
     }
