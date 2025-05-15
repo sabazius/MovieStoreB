@@ -43,7 +43,9 @@ namespace MovieStoreB.DL.Repositories.MongoRepositories
 
         public async Task<List<Movie>> GetMovies()
         {
-            return _moviesCollection.Find(m => true).ToList();
+            var result = await _moviesCollection.FindAsync(m => true);
+
+            return await result.ToListAsync();  
         }
 
         public Movie? GetMoviesById(string id)
@@ -51,7 +53,7 @@ namespace MovieStoreB.DL.Repositories.MongoRepositories
             return _moviesCollection.Find(m => m.Id == id).FirstOrDefault();
         }
 
-        public async Task<IEnumerable<Movie?>> GetMoviesAfterDateTime(DateTime date)
+        protected async Task<IEnumerable<Movie?>> GetMoviesAfterDateTime(DateTime date)
         {
             var result = await _moviesCollection.FindAsync(m => m.DateInserted >= date);
 

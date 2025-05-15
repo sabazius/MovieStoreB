@@ -4,7 +4,7 @@ using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.DL.Interfaces
 {
-    public interface IMovieRepository : ICacheRepository<Movie>
+    public interface IMovieRepository : ICacheRepository<string, Movie>
     {
         Task<List<Movie>> GetMovies();
 
@@ -13,7 +13,5 @@ namespace MovieStoreB.DL.Interfaces
         void DeleteMovie(string id);
 
         Movie? GetMoviesById(string id);
-
-        Task<IEnumerable<Movie?>> GetMoviesAfterDateTime(DateTime date);
     }
 }

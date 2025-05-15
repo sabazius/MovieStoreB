@@ -1,8 +1,11 @@
-﻿namespace MovieStoreB.Models.DTO
+﻿
+namespace MovieStoreB.Models.DTO
 {
-    public record Actor(string Id, string Name) : CacheItem<string>
+    public record Actor(string Id, string Name) : ICacheItem<string>
     {
-        public override string GetKey()
+        public DateTime DateInserted { get; set; }
+
+        public string GetKey()
         {
             return Id;
         }
