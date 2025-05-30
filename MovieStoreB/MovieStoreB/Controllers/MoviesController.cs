@@ -55,8 +55,7 @@ namespace MovieStoreB.Controllers
         }
 
         [HttpPost("AddMovie")]
-        public void AddMovie(
-            [FromBody]AddMovieRequest movieRequest)
+        public void AddMovie([FromBody]AddMovieRequest movieRequest)
         {
             var movie = _mapper.Map<Movie>(movieRequest);
 

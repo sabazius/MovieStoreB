@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieStoreB.BL", "MovieStor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieStoreB.Tests", "MovieStoreB.Tests\MovieStoreB.Tests.csproj", "{8092070F-785A-4380-B4A7-688384CCB1B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActorBioAPI", "ActorBioAPI\ActorBioAPI.csproj", "{2B66591C-BB51-47CD-8D51-A79DD5DD59D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8092070F-785A-4380-B4A7-688384CCB1B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8092070F-785A-4380-B4A7-688384CCB1B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8092070F-785A-4380-B4A7-688384CCB1B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B66591C-BB51-47CD-8D51-A79DD5DD59D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B66591C-BB51-47CD-8D51-A79DD5DD59D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B66591C-BB51-47CD-8D51-A79DD5DD59D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B66591C-BB51-47CD-8D51-A79DD5DD59D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

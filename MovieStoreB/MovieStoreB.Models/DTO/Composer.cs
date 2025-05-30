@@ -5,7 +5,7 @@ namespace MovieStoreB.Models.DTO
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public DateTime DateInserted { get; set; }
 
         public int GetKey()
@@ -18,7 +18,7 @@ namespace MovieStoreB.Models.DTO
 
         public Guid Id { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         public DateTime DateInserted { get; set; }
 

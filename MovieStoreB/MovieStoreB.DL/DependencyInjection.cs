@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MovieStoreB.DL.Cache;
+using MovieStoreB.DL.Gateways;
 using MovieStoreB.DL.Interfaces;
 using MovieStoreB.DL.Kafka;
 using MovieStoreB.DL.Kafka.KafkaCache;
@@ -18,13 +19,12 @@ namespace MovieStoreB.DL
         {
             services.AddSingleton<IMovieRepository, MoviesRepository>();
             services.AddSingleton<IActorRepository, ActorMongoRepository>();
+            services.AddSingleton<IActorBioGateway, ActorBioGateway>();
 
             //services.AddHostedService<MongoCacheDistributor>();
             //services.AddSingleton<ICacheRepository<Movie>, MoviesRepository>();
 
             services.AddCache<MoviesCacheConfiguration, MoviesRepository, Movie, string>(config);
-
-
             services.AddCache<ActorsCacheConfiguration, ActorMongoRepository, Actor, string>(config);
 
             services.AddHostedService<KafkaCache<string, Movie>>();

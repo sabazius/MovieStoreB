@@ -6,7 +6,7 @@ namespace MovieStoreB.Models.DTO
     public record Movie : ICacheItem<string>
     {
         [Key(0)]
-        public string Id { get; set; }
+        public string Id { get; set; }  
 
         [Key(1)]
         public string Title { get; set; }

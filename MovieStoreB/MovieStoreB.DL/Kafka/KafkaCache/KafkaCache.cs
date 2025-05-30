@@ -24,9 +24,16 @@ namespace MovieStoreB.DL.Kafka.KafkaCache
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            Task.Run(() => ConsumeMessages(stoppingToken), stoppingToken);
+                
+            return Task.CompletedTask;
+        }
+
+        private void ConsumeMessages(CancellationToken stoppingToken)
+        {
             using (var consumer = new ConsumerBuilder<TKey, TValue>(_config)
-               .SetValueDeserializer(new MessagePackDeserializer<TValue>())
-               .Build())
+              .SetValueDeserializer(new MessagePackDeserializer<TValue>())
+              .Build())
             {
                 consumer.Subscribe("movies_cache");
 
@@ -44,12 +51,8 @@ namespace MovieStoreB.DL.Kafka.KafkaCache
                         // Handle the error
                         Console.WriteLine($"Error: {consumeResult.Message.Key}");
                     }
-
                 }
-
             }
-
-            return Task.CompletedTask;
         }
     }
 }

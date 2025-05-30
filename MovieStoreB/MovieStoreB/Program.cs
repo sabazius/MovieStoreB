@@ -36,7 +36,7 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddHealthChecks();
 
 builder.Services.AddHealthChecks()
-    .AddCheck<SampleHealthCheck>("Sample");
+    .AddCheck<SampleHealthCheck>("Sampler");
 
 var app = builder.Build();
 

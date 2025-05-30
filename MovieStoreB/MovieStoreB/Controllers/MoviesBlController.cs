@@ -21,22 +21,6 @@ namespace MovieStoreB.Controllers
             _logger = logger;
         }
 
-        [HttpPost("TestFluentValid")]
-        public async Task<IActionResult> TestFluentValid([FromBody] TestRequest movieRequest)
-        {
-            //if (movieRequest == null) return BadRequest();
-
-            //if (movieRequest.Id <= 0) return BadRequest();
-
-            //if (movieRequest.Title == null) return BadRequest();
-
-            //if (string.IsNullOrWhiteSpace(movieRequest.Title)) return BadRequest(); 
-
-            //if (movieRequest.Title.Length <= 1 || movieRequest.Title.Length > 50) return BadRequest();
-
-            return Ok();
-        }
-
         [HttpGet("GetAll")]
         public async Task<IEnumerable<Movie>> GetAll()
         {

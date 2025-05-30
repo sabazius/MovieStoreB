@@ -13,7 +13,7 @@ namespace MovieStoreB.DL.Kafka
         private readonly IProducer<TKey, TData> _producer;
         private readonly IOptionsMonitor<TConfiguration> _kafkaConfig;
 
-        public KafkaProducer()
+        public KafkaProducer(IOptionsMonitor<TConfiguration> kafkaConfig)
         {
             _config = new ProducerConfig()
             {
@@ -28,6 +28,7 @@ namespace MovieStoreB.DL.Kafka
             _producer = new ProducerBuilder<TKey, TData>(_config)
                 .SetValueSerializer(new MsgPackSerializer<TData>())
                 .Build();
+            _kafkaConfig = kafkaConfig;
         }
 
         public async Task Produce(TData message)
